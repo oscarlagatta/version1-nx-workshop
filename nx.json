@@ -23,6 +23,9 @@
     },
     "material": {
       "tags": []
+    },
+    "layout": {
+      "tags": []
     }
   }
 }
