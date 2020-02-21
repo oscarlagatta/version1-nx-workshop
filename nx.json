@@ -23,6 +23,12 @@
     },
     "material": {
       "tags": []
+    },
+    "layout": {
+      "tags": []
+    },
+    "products": {
+      "tags": []
     }
   }
 }
