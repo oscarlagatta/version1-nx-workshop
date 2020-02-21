@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
+import { authRoutes, AuthModule } from '@version1/auth';
+
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 
@@ -8,7 +10,10 @@ import { RouterModule } from '@angular/router';
   declarations: [AppComponent],
   imports: [
     BrowserModule,
-    RouterModule.forRoot([], { initialNavigation: 'enabled' })
+    AuthModule,
+    RouterModule.forRoot([{ path: 'auth', children: authRoutes }], {
+      initialNavigation: 'enabled'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]
