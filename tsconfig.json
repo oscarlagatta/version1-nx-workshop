@@ -18,7 +18,8 @@
     "paths": {
       "@version1/auth": ["libs/auth/src/index.ts"],
       "@version1/material": ["libs/material/src/index.ts"],
-      "@version1/layout": ["libs/layout/src/index.ts"]
+      "@version1/layout": ["libs/layout/src/index.ts"],
+      "@version1/products": ["libs/products/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

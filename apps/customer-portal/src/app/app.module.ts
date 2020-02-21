@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 
 import { authRoutes, AuthModule } from '@version1/auth';
 import { LayoutModule } from '@version1/layout';
+import { AuthGuard } from '@version1/auth';
 
 import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
@@ -15,9 +16,20 @@ import { RouterModule } from '@angular/router';
     BrowserAnimationsModule,
     AuthModule,
     LayoutModule,
-    RouterModule.forRoot([{ path: 'auth', children: authRoutes }], {
-      initialNavigation: 'enabled'
-    })
+    RouterModule.forRoot(
+      [
+        { path: 'auth', children: authRoutes },
+        {
+          path: 'products',
+          loadChildren: () =>
+            import('@version1/products').then(module => module.ProductsModule),
+          canActivate: [AuthGuard]
+        }
+      ],
+      {
+        initialNavigation: 'enabled'
+      }
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]
