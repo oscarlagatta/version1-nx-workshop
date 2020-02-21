@@ -5,6 +5,7 @@ import {
   EventEmitter,
   ChangeDetectionStrategy
 } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Authenticate } from '../../data-models/authenticate';
 
 @Component({
@@ -18,9 +19,17 @@ export class LoginFormComponent implements OnInit {
 
   constructor() {}
 
+  loginForm = new FormGroup({
+    username: new FormControl('', [Validators.required]),
+    password: new FormControl('', [Validators.required])
+  });
+
   ngOnInit() {}
 
   login(authenticate: Authenticate) {
-    this.submitData.emit(authenticate);
+    this.submitData.emit({
+      username: this.loginForm.value.username,
+      password: this.loginForm.value.password
+    } as Authenticate);
   }
 }
