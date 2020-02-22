@@ -6,11 +6,13 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import * as fromProducts from './+state/products.reducer';
 import { ProductsEffects } from './+state/products.effects';
+import { ProductListComponent } from './components/product-list/product-list.component';
+import { MaterialModule } from '@version1/material';
 
 @NgModule({
   imports: [
     CommonModule,
-
+    MaterialModule,
     RouterModule.forChild([
       { path: '', pathMatch: 'full', component: ProductsComponent }
     ]),
@@ -22,6 +24,6 @@ import { ProductsEffects } from './+state/products.effects';
 
     EffectsModule.forFeature([ProductsEffects])
   ],
-  declarations: [ProductsComponent]
+  declarations: [ProductsComponent, ProductListComponent]
 })
 export class ProductsModule {}

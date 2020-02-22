@@ -10,7 +10,6 @@ import {
 const getProductsState = createFeatureSelector<ProductsData>(
   PRODUCTS_FEATURE_KEY
 );
-// const getProductsState = createFeatureSelector<ProductsData>('products');
 
 const getProducts = createSelector(
   getProductsState,
@@ -27,17 +26,8 @@ const getSelectedProductId = createSelector(
   fromProduct.getSelectedProductId
 );
 
-const getSelectedProduct = createSelector(
-  getProductEntnites,
-  getSelectedProductId,
-  (productsDictionary, id) => {
-    return productsDictionary[id];
-  }
-);
-
 export const productsQuery = {
   getProducts,
   getProductEntnites,
-  getSelectedProductId,
-  getSelectedProduct
+  getSelectedProductId
 };
