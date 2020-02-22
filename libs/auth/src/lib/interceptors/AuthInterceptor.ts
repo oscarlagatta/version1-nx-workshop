@@ -5,9 +5,8 @@ import {
   HttpHandler,
   HttpRequest
 } from '@angular/common/http';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { switchMap, tap } from 'rxjs/operators';
-import { of } from 'rxjs/Observable/of';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
