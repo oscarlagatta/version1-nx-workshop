@@ -12,7 +12,9 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromAuth from './+state/auth.reducer';
 import { AuthEffects } from './+state/auth.effects';
 
-export const authRoutes: Route[] = [{ path: '', component: LoginComponent }];
+export const authRoutes: Route[] = [
+  { path: 'login', component: LoginComponent }
+];
 
 const Components = [LoginComponent, LoginFormComponent];
 @NgModule({
