@@ -1,31 +1,41 @@
 import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import { DataPersistence } from '@nrwl/angular';
-
-import { AuthPartialState } from './auth.reducer';
 import {
   Login,
   LoginSuccess,
   LoginFail,
   AuthActionTypes
 } from './auth.actions';
+import { AuthService } from '../services/auth/auth.service';
+import { mergeMap, map, catchError, tap } from 'rxjs/operators';
+import { User } from '../data-models/user';
+import { of } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthEffects {
-  @Effect() loadAuth$ = this.dataPersistence.fetch(AuthActionTypes.Login, {
-    run: (action: Login, state: AuthPartialState) => {
-      // Your custom REST 'load' logic goes here. For now just return an empty list...
-      return new LoginSuccess(state['user']);
-    },
+  @Effect()
+  login$ = this.actions$.pipe(
+    ofType(AuthActionTypes.Login),
+    mergeMap((action: Login) =>
+      this.authService.login(action.payload).pipe(
+        map((user: User) => new LoginSuccess(user)),
+        catchError(error => of(new LoginFail(error)))
+      )
+    )
+  );
 
-    onError: (action: Login, error) => {
-      console.error('Error', error);
-      return new LoginFail(error);
-    }
-  });
+  @Effect({ dispatch: false })
+  navigateToProfile$ = this.actions$.pipe(
+    ofType(AuthActionTypes.LoginSuccess),
+    map((action: LoginSuccess) => action.payload),
+    tap(() => this.router.navigate([`/products`]))
+  );
 
   constructor(
     private actions$: Actions,
-    private dataPersistence: DataPersistence<AuthPartialState>
+    private authService: AuthService,
+    private router: Router
   ) {}
 }
