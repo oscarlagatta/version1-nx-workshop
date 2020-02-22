@@ -1,5 +1,21 @@
 # Version1
 
+## Workshop: Enterprise Angular applications with ngrx and nx
+
+Building enterprise Angular applications is not easy and when you need to share code between multiple Angular mobile or web applications it is even harder. If you are about to kick off or are in the middle of a large application in Angular this workshop will prepare you to tackle implementing the best project structure and patterns using nx workspaces and ngrx state management patterns.
+
+In this workshop we walk through a thorough introduction into using [NGRX](https://ngrx.io/), an [RxJS](https://rxjs-dev.firebaseapp.com/) powered state management library for Angular applications, inspired by Redux. We will use nx or Nrwl Extensions an open source toolkit for enterprise Angular applications. NX is designed to help you create and build enterprise-grade Angular applications with proven project structure and patterns.
+
+You will learn to use [Nx](https://nx.dev) to create a monorepo creating one or many Angular applications with a robust code sharing system using nx workspaces and shared libraries.
+
+We will build an [Nx](https://nx.dev) application implementing ngrx actions, reducers, effects, entity adapters, router-store, onPush change detection and a single immutable data structure called the store.
+
+We will look at common patterns for structuring your applications state by feature and how to deal with splitting up related data into multiple reducers.
+
+Then will we will look at how to create selectors to combine multiple slices of state from the store.
+
+By the end of this workshop you will have built a working [Nx](https://nx.dev) and [NGRX](https://ngrx.io/) application you can extend into an enterprise application.
+
 This project was generated using [Nx](https://nx.dev).
 
 <p align="center"><img src="https://raw.githubusercontent.com/nrwl/nx/master/nx-logo.png" width="450"></p>
