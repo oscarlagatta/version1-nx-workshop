@@ -26,8 +26,17 @@ const getSelectedProductId = createSelector(
   fromProduct.getSelectedProductId
 );
 
+const getSelectedProduct = createSelector(
+  getProductEntnites,
+  getSelectedProductId,
+  (productsDictionary, product) => {
+    return productsDictionary[product.id];
+  }
+);
+
 export const productsQuery = {
   getProducts,
   getProductEntnites,
-  getSelectedProductId
+  getSelectedProductId,
+  getSelectedProduct
 };
