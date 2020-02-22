@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { User, AuthService } from '@version1/auth';
+import { AuthState, User, authQuery } from '@version1/auth';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'app-layout',
@@ -9,9 +10,9 @@ import { User, AuthService } from '@version1/auth';
 })
 export class LayoutComponent implements OnInit {
   user$: Observable<User>;
-  constructor(private authService: AuthService) {}
+  constructor(private store: Store<AuthState>) {}
 
   ngOnInit() {
-    this.user$ = this.authService.user$;
+    this.user$ = this.store.select(authQuery.getUser)
   }
 }
