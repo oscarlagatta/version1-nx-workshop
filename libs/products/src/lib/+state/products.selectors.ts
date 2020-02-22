@@ -14,9 +14,30 @@ const getProductsState = createFeatureSelector<ProductsData>(
 
 const getProducts = createSelector(
   getProductsState,
-  state => state.products
+  fromProduct.selectAllProducts
+);
+
+const getProductEntnites = createSelector(
+  getProductsState,
+  fromProduct.selectProductEntities
+);
+
+const getSelectedProductId = createSelector(
+  getProductsState,
+  fromProduct.getSelectedProductId
+);
+
+const getSelectedProduct = createSelector(
+  getProductEntnites,
+  getSelectedProductId,
+  (productsDictionary, id) => {
+    return productsDictionary[id];
+  }
 );
 
 export const productsQuery = {
-  getProducts
+  getProducts,
+  getProductEntnites,
+  getSelectedProductId,
+  getSelectedProduct
 };

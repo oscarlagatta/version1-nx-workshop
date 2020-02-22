@@ -1,6 +1,7 @@
+import { Action } from '@ngrx/store';
 import { ProductsActions, ProductsActionTypes } from './products.actions';
+import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Product } from '@version1/products';
-
 export const PRODUCTS_FEATURE_KEY = 'products';
 
 /**
@@ -18,7 +19,7 @@ export interface Entity {}
  *  - ProductsState, and
  *  - productsReducer
  */
-export interface ProductsData {
+export interface ProductsData extends EntityState<Product> {
   loading: boolean;
   products: Product[];
   error: '';
@@ -32,11 +33,13 @@ export interface ProductsState {
   readonly products: ProductsData;
 }
 
-export const initialState: ProductsData = {
+export const adapter: EntityAdapter<Product> = createEntityAdapter<Product>({});
+
+export const initialState: ProductsData = adapter.getInitialState({
   loading: false,
   products: [],
   error: ''
-};
+});
 
 export function reducer(
   state = initialState,
@@ -47,17 +50,31 @@ export function reducer(
       return { ...state, loading: true };
 
     case ProductsActionTypes.LoadProductsSuccess: {
-      return { ...state, products: action.payload, loading: false, error: '' };
+      return adapter.addAll(action.payload, { ...state, error: '' });
     }
+
     case ProductsActionTypes.LoadProductsFail: {
-      return {
-        ...state,
-        products: null,
-        loading: false,
-        error: action.payload
-      };
+      return adapter.removeAll({ ...state, error: action.payload });
     }
+
     default:
       return state;
   }
 }
+
+export const getSelectedProductId = (state: ProductsData) =>
+  state.entities.getSelectedProductId;
+
+export const {
+  // select the array of product ids
+  selectIds: selectProductIds,
+
+  // select the dictionary of Products entities
+  selectEntities: selectProductEntities,
+
+  // select the array of Productss
+  selectAll: selectAllProducts,
+
+  // select the total Products count
+  selectTotal: selectProductsTotal
+} = adapter.getSelectors();
