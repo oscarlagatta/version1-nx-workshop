@@ -1,4 +1,5 @@
-import { AuthAction, AuthActionTypes } from './auth.actions';
+import { AuthActions, AuthActionTypes } from './auth.actions';
+import { User } from '../data-models/user';
 
 export const AUTH_FEATURE_KEY = 'auth';
 
@@ -12,11 +13,21 @@ export const AUTH_FEATURE_KEY = 'auth';
 /* tslint:disable:no-empty-interface */
 export interface Entity {}
 
+export interface AuthData {
+  loading: boolean;
+  user: User;
+  error: Error;
+}
+
 export interface AuthState {
   list: Entity[]; // list of Auth; analogous to a sql normalized table
   selectedId?: string | number; // which Auth record has been selected
   loaded: boolean; // has the Auth list been loaded
   error?: any; // last none error (if any)
+}
+
+export interface AuthState2 {
+  readonly auth: AuthData;
 }
 
 export interface AuthPartialState {
@@ -30,13 +41,13 @@ export const initialState: AuthState = {
 
 export function reducer(
   state: AuthState = initialState,
-  action: AuthAction
+  action: AuthActions
 ): AuthState {
   switch (action.type) {
-    case AuthActionTypes.AuthLoaded: {
+    case AuthActionTypes.Login: {
       state = {
         ...state,
-        list: action.payload,
+        //list: action.payload,
         loaded: true
       };
       break;
