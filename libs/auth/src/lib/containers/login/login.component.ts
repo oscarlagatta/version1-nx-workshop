@@ -13,6 +13,6 @@ export class LoginComponent implements OnInit {
   ngOnInit() {}
 
   login(authenticate: any): void {
-    this.store.dispatch(new authActions.Login(authenticate));
+    this.store.dispatch(authActions.login({ authenticate }));
   }
 }

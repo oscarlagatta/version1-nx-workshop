@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthState, LoginSuccess } from '@version1/auth';
+import { AuthState, loginSuccess } from '@version1/auth';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +10,9 @@ import { AuthState, LoginSuccess } from '@version1/auth';
 export class AppComponent {
   title = 'customer-portal';
   constructor(private store: Store<AuthState>) {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('workshop-user'));
     if (user) {
-      this.store.dispatch(new LoginSuccess(user));
+      this.store.dispatch(loginSuccess({ user: user }));
     }
   }
 }
