@@ -1,5 +1,5 @@
-import { Action } from '@ngrx/store';
-import { ProductsActions, ProductsActionTypes } from './products.actions';
+import { createReducer, on } from '@ngrx/store';
+import * as fromProductsActions from './products.actions';
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Product } from '@version1/products';
 export const PRODUCTS_FEATURE_KEY = 'products';
@@ -41,26 +41,21 @@ export const initialState: ProductsData = adapter.getInitialState({
   error: ''
 });
 
-export function reducer(
-  state = initialState,
-  action: ProductsActions
-): ProductsData {
-  switch (action.type) {
-    case ProductsActionTypes.LoadProducts:
-      return { ...state, loading: true };
-
-    case ProductsActionTypes.LoadProductsSuccess: {
-      return adapter.addAll(action.payload, { ...state, error: '' });
-    }
-
-    case ProductsActionTypes.LoadProductsFail: {
-      return adapter.removeAll({ ...state, error: action.payload });
-    }
-
-    default:
-      return state;
-  }
-}
+export const reducer = createReducer(
+  initialState,
+  on(fromProductsActions.loadProducts, (state, action) => {
+    return { ...state, loading: true };
+  }),
+  on(fromProductsActions.loadProductsSuccess, (state, action) =>
+    adapter.addAll(action.products, {
+      ...state,
+      loading: false
+    })
+  ),
+  on(fromProductsActions.loadProuctsFail, (state, action) => {
+    return { ...state, error: action.error };
+  })
+);
 
 export const getSelectedProductId = (state: ProductsData) =>
   state.entities.getSelectedProductId;

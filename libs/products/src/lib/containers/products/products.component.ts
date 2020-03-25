@@ -4,7 +4,7 @@ import { productsQuery } from './../../+state/products.selectors';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Product } from '@version1/products';
-import { LoadProducts } from './../../+state/products.actions';
+import { loadProducts } from './../../+state/products.actions';
 import { NavigationExtras, Router } from '@angular/router';
 
 @Component({
@@ -19,7 +19,7 @@ export class ProductsComponent implements OnInit {
   constructor(private store: Store<ProductsState>, private router: Router) {}
 
   ngOnInit() {
-    this.store.dispatch(new LoadProducts());
+    this.store.dispatch(loadProducts());
     this.products$ = this.store.pipe(select(productsQuery.getProducts));
     this.selectedProduct$ = this.store.pipe(
       select(productsQuery.getSelectedProduct)

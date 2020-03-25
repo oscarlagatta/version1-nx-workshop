@@ -13,6 +13,6 @@ export class LayoutComponent implements OnInit {
   constructor(private store: Store<AuthState>) {}
 
   ngOnInit() {
-    this.user$= this.store.select(authQuery.getUser)
+    this.user$ = this.store.select(authQuery.getUser);
   }
 }

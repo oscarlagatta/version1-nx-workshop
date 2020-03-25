@@ -2,7 +2,6 @@ import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromProduct from './products.reducer';
 import {
   PRODUCTS_FEATURE_KEY,
-  ProductsState,
   ProductsData
 } from './products.reducer';
 

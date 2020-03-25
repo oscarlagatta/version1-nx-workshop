@@ -24,11 +24,15 @@ export class AuthEffects {
     )
   );
 
-  @Effect({ dispatch: false })
-  navigateToProfile$ = this.actions$.pipe(
-    ofType(AuthActions.loginSuccess),
-    map(action => action.user),
-    tap(() => this.router.navigate([`/products`]))
+  navigateToProfile$ = createEffect(
+    () => {
+      return this.actions$.pipe(
+        ofType(AuthActions.loginSuccess),
+        map(action => action.user),
+        tap(() => this.router.navigate([`/products`]))
+      );
+    },
+    { dispatch: false }
   );
 
   constructor(

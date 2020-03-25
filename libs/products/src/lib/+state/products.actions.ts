@@ -1,4 +1,5 @@
-import { Action } from '@ngrx/store';
+import { Action, createAction, props } from '@ngrx/store';
+import { Product } from '../data-models/product';
 
 export enum ProductsActionTypes {
   LoadProducts = '[Products Page] Load Products',
@@ -6,20 +7,14 @@ export enum ProductsActionTypes {
   LoadProductsFail = '[Products API] LoadProducts Fail'
 }
 
-export class LoadProducts implements Action {
-  readonly type = ProductsActionTypes.LoadProducts;
-}
-export class LoadProductsSuccess implements Action {
-  readonly type = ProductsActionTypes.LoadProductsSuccess;
-  constructor(public payload: any) {}
-}
+export const loadProducts = createAction('[Products Page] Load Products');
 
-export class LoadProductsFail implements Action {
-  readonly type = ProductsActionTypes.LoadProductsFail;
-  constructor(public payload: any) {}
-}
+export const loadProductsSuccess = createAction(
+  '[Products API] Load Products Success',
+  props<{ products: Product[] }>()
+);
 
-export type ProductsActions =
-  | LoadProducts
-  | LoadProductsSuccess
-  | LoadProductsFail;
+export const loadProuctsFail = createAction(
+  '[Products API] LoadProducts Fail',
+  props<{ error: any }>()
+);
