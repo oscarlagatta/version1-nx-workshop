@@ -1,11 +1,5 @@
-import { Action, createAction, props } from '@ngrx/store';
+import { createAction, props } from '@ngrx/store';
 import { Product } from '../data-models/product';
-
-export enum ProductsActionTypes {
-  LoadProducts = '[Products Page] Load Products',
-  LoadProductsSuccess = '[Products API] Load Products Success',
-  LoadProductsFail = '[Products API] LoadProducts Fail'
-}
 
 export const loadProducts = createAction('[Products Page] Load Products');
 
